@@ -1,0 +1,119 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta name="viewport" content="width=800, initial-scale=0.45, minimum-scale=0.45">
+    <link rel="stylesheet" href="style.css">
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- app -->
+    <script src="app.js"></script>
+    <!-- services -->
+    <script src="music.js"></script>
+    <script src="model.js"></script>
+    <script src="fullscreen.js"></script>
+    <!-- misc -->
+    <script src="default-localstorage.js"></script>
+    <script src="util.js"></script>
+    <!-- controllers -->
+    <script src="ctrl-frets.js"></script>
+    <script src="ctrl-prefs.js"></script>
+    <script src="ctrl-content.js"></script>
+    <script src="ctrl-repo.js"></script>
+  </head>
+  <body>
+
+    <table class="container">
+     <tr>
+    
+      <td class="controller" ng-controller="fretsController" id="fretsController">
+
+        <!-- User Interface -->
+        <select ng-model="Model.selectedInstrument" ng-options="inst.title for inst in Music.instruments"></select>
+        <select ng-model="Model.selectedNote"       ng-options="note.name for note in Music.notes"></select>
+        <select ng-model="Model.selectedChord"      ng-options="chord.title for chord in Music.chords"></select>
+        
+        <!-- Fretboard View -->
+        <table class="fretTable">
+          <tr>
+            <td></td>
+            <td ng-repeat="stringNote in Model.selectedInstrument.notes track by $index">{{ Music.notes[stringNote].name }}</td>
+          </tr>
+          <tr ng-repeat="fret in _.range(12) track by $index">
+            <td>{{fret}}</td>
+            <td ng-repeat="stringNote in Model.selectedInstrument.notes track by $index" class="fretCell" style="position: relative;">
+              <div class="noteIndicator">{{ getNoteOutput(fret, stringNote) }}</div>
+              <div>{{ getFretOutput(fret, stringNote) }}</div>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    
+      <td class="controller" ng-controller="contentController" id="contentController">
+        
+        <table style="height: 100%;">
+         <tr style="height: 1%;"><td>
+          <button ng-click="transpose(1)">+</button>
+          <button ng-click="transpose(-1)">-</button>
+          <button ng-click="smartTranspose(0)">Auto</button>
+          <button ng-click="smartTranspose(1)">(alt1)</button>
+          <button ng-click="smartTranspose(2)">(alt2)</button>
+          <button ng-click="smartTranspose(3)">(alt3)</button>
+          <button ng-click="fullscreen()">Fullscreen</button>
+         </td></tr>
+         <tr style="height: 99%;"><td style="height: 100%;">
+          <textarea ng-model="Model.content" ng-trim="false" ng-click="contentClick($event);" style="height: 100%;"></textarea>
+         </td></tr>
+        </table>
+
+      </td>
+
+      <td class="controller" ng-controller="prefsController" id="prefsController">
+
+        
+        <button ng-click="create()">New</button>
+        <button ng-click="save()">Save</button>
+        <br>
+
+        <div id="profiles">
+          <div ng-repeat="profile in Model.profiles.list track by $index">
+            <span ng-class="{ selected: Model.selectedProfile === profile }">{{profile.title}}</span> <button ng-click="load(profile)">Load</button>
+          </div>
+        </div>
+
+        <table class="prefsTable">
+          <tr>
+            <td></td>
+            <td ng-repeat="noteIndex in _.range(12) track by $index">{{ Music.notes[noteIndex].name }}</td>
+          </tr>
+          <tr ng-repeat="chord in Music.chords">
+            <td>{{chord.title}}</td>
+            <td ng-repeat="noteIndex in _.range(12) track by $index" class="prefsCell" style="position: relative;" ng-click="cyclePrefsCell(chord, noteIndex)" ng-class="getPrefsCellClass(chord, noteIndex)">
+              {{ getPrefsCellContent(chord, noteIndex) }}
+            </td>
+          </tr>
+        </table>
+
+      </td>
+
+      <td class="controller" ng-controller="repoController" id="repoController">
+
+        <input ng-model="filename" style="width: 200px;" placeholder="(new file)">
+        <button ng-click="save()">Save</button>
+        <button ng-click="delete()">Delete</button>
+        <br>
+        
+        <div id="files">
+          <div ng-repeat="file in Model.files track by $index">
+            <a ng-click="load(file)" ng-class="{ selected: filename === file.title }">{{file.title}}</a>
+          </div>
+        </div>
+
+      </td>
+
+     </tr>
+    </table>
+
+  </body>
+</html>

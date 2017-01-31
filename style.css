@@ -1,0 +1,55 @@
+body { -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; }
+h2 { margin-top: 0; }
+/*div.container { display: table; }
+div.controller { margin-right: 20px; display: table-cell; height: 100%; vertical-align: top; }*/
+table.container { height: 100%; }
+table.container > tbody > tr > td { vertical-align: top; height: 100%; }
+
+
+
+/* chords */
+
+.fretTable { border-collapse: collapse; margin-top: 10px; }
+.fretTable th { width: 25px; height: 25px; background-color: #ccc; }
+.fretTable td { width: 25px; height: 25px; border: 1px solid #ddd; text-align: center; }
+.fretTable .fretCell { cursor: crosshair; }
+.fretTable .fretCellHighlight { color: white; background-color: black; }
+
+.fretTable tr > td:first-child { background-color: #ccc; border: none; border-right: 1px solid black; }
+.fretTable tr:first-child > td { background-color: #ccc; border: none; border-bottom: 1px solid black; }
+.fretTable tr:first-child > td:first-child { background-color: white; border: none; }
+
+.noteIndicator { position: absolute; width: 25px; height: 25px; top: 0; margin: 0; padding: 0; font-size: 12px; color: #aaa; z-index: -1; text-align: left; } /* requires parent (.fretCell) to be position: relative; */
+
+/* prefs */
+
+.prefsTable { border-collapse: collapse; margin-top: 10px; }
+.prefsTable th { width: 25px; height: 25px; background-color: #ccc; }
+.prefsTable td { width: 25px; height: 25px; border: 1px solid #ddd; text-align: center; }
+.prefsTable .prefsCell { cursor: crosshair; }
+.prefsTable .prefsCellHighlight { color: white; background-color: black; }
+
+.prefsTable tr > td:first-child { background-color: #ccc; border: none; border-right: 1px solid black; }
+.prefsTable tr:first-child > td { background-color: #ccc; border: none; border-bottom: 1px solid black; }
+.prefsTable tr:first-child > td:first-child { background-color: white; border: none; }
+
+/* transposer */
+
+textarea { width: 500px; margin-top: 7px; }
+
+/* fullscreen */
+
+#fullscreen { position: absolute; left: 0; top: 0; width: 5000px; bottom: 0; padding: 7px; background-color: white; display: none; vertical-align: top; }
+#fullscreen > div { display: inline-block; margin-right: 13px; white-space: pre; font-family: "Lucida Console", Monaco, monospace; height: 100%; vertical-align: top; }
+#fullscreen > div > div { cursor: col-resize; }
+#fullscreen > div > div.chords { font-weight: bolder; }
+#fullscreen .tips { position: absolute; right: 0; bottom: 0; color: #fff; background-color: #999; padding: 15px; text-align: center; }
+
+#lineHeightSample { position: absolute; left: -100px; white-space: pre; font-family: "Lucida Console", Monaco, monospace; font-weight: bolder; }
+
+/* repo */
+#files a { cursor: crosshair; }
+
+
+.selected { font-weight: bold; }
+

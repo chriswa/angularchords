@@ -1,0 +1,4 @@
+- remove the profile list. replace it with a JSON textarea which the user can copy and paste into notepad if having a single localstorage won't cut it (e.g. 2 ppl sharing one browser window)
+- store the selected (i.e. highlighted fingerings) fret position for each chord for the user
+  - switching note/chordtype will load (or clear) the highlighted frets
+- snapshots feature: show a list of fingerings the user has queued up. one button on each removes it. there is a button near the fretboard to add a snapshot
